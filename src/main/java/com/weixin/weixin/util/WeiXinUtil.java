@@ -1,9 +1,13 @@
 package com.weixin.weixin.util;
 
-import com.sun.deploy.net.HttpResponse;
+import com.alibaba.fastjson.JSONObject;
 import com.weixin.weixin.entry.AccessToken;
 import lombok.Data;
-import org.springframework.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
@@ -14,9 +18,9 @@ import java.io.IOException;
  */
 @Data
 public class WeiXinUtil {
-    private static final String APPID = "wxfc73577ca8460519";
-    private static final String APPSECRET = "b0b75d65ccb882f8b5526538b48121cb";
-    private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+    private static final String APP_ID = "wxfc73577ca8460519";
+    private static final String APP_SECRET = "b0b75d65ccb882f8b5526538b48121cb";
+    private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APP_ID&secret=APP_SECRET";
 
     /**
      * get请求
@@ -24,51 +28,24 @@ public class WeiXinUtil {
      * @param url
      * @return
      */
-    public static JSONObject doGetStr(String url) {
-        DefaultHttpClient httpClient = new DefaultHttpClient();
+    public static JSONObject sendGet(String url) throws IOException {
+        JSONObject fromObject = null;
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet get = new HttpGet(url);
+        CloseableHttpResponse response = null;
+        //创建get请求
         HttpGet httpGet = new HttpGet(url);
-        JSONObject jsonObject = null;
-
-        try {
-            HttpResponse response = httpClient.execute(httpGet);
-            HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                String result = EntityUtils.toString(entity, "utf-8");
-                jsonObject = JSONObject.fromObject(result);
-
-            }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        //执行请求
+        response = httpClient.execute(httpGet);
+        if (response.getStatusLine().getStatusCode() == 200) {
+            String result = EntityUtils.toString(response.getEntity(), "UTF-8");
+            fromObject = JSONObject.parseObject(result);
         }
-        return jsonObject;
-    }
-
-
-    /**
-     * post请求
-     *
-     * @param url
-     * @param outStr
-     * @return
-     */
-    public static JSONObject doPostStr(String url, String outStr) {
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(url);
-        JSONObject jsonObject = null;
-
-        try {
-            httpPost.setEntity(new StringEntity(outStr, "utf-8"));
-            HttpResponse response = httpClient.execute(httpPost);
-            String result = EntityUtils.toString(response.getEntity(), "utf-8");
-            jsonObject = JSONObject.fromObject(result);
-        } catch (Exception e) {
-            e.printStackTrace();
+        httpClient.close();
+        if (response != null) {
+            response.close();
         }
-
-
-        return jsonObject;
+        return fromObject;
     }
 
 
@@ -77,14 +54,14 @@ public class WeiXinUtil {
      *
      * @return
      */
-    public static AccessToken getAccessToken() {
+    public static AccessToken getAccessToken() throws IOException {
         AccessToken token = new AccessToken();
-        String url = ACCESS_TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
-        JSONObject jsonObject = doGetStr(url);
+        String url = ACCESS_TOKEN_URL.replace("APP_ID", APP_ID).replace("APP_SECRET", APP_SECRET);
+        JSONObject jsonObject = sendGet(url);
         if (jsonObject != null) {
             if (jsonObject.containsKey("access_token")) {
                 token.setToken(jsonObject.getString("access_token"));
-                token.setExpiresIn(jsonObject.getInt("expires_in"));
+                token.setExpiresIn(jsonObject.getInteger("expires_in"));
             } else {
                 System.out.println("获取access_token失败");
             }
