@@ -36,7 +36,7 @@ public class MessageUtil {
     //视频信息
     public static final String REQ_MESSAGE_TYPE_VIDEO = "video";
     //音频信息
-    public static final String REQ_MESSAGE_TYPE_VOICE = "voice";
+    public static final String REQ_MESSAGE_TYPE_VOICE = "music";
     //短视频信息
     public static final String REQ_MESSAGE_TYPE_SHORT_VIDEO = "short_video";
     //地理信息信息

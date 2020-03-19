@@ -67,7 +67,7 @@ public class InitMsgContentUtil {
             Music music = new Music();
             String mediaId = WeiXinUtil.upload(path, access_token, "thumb");
             music.setTitle("好听的Music");
-            music.setDescription("感觉非常哇塞的歌曲了。。");
+            music.setDescription("感觉非常哇塞的歌曲");
             music.setMusicUrl("https://bucket-youyou.oss-cn-beijing.aliyuncs.com/yoyo_project/teacherResource/008b7c28ac824a539166412284f318d6.mp3");
             music.setHQMusicUrl("https://bucket-youyou.oss-cn-beijing.aliyuncs.com/yoyo_project/teacherResource/008b7c28ac824a539166412284f318d6.mp3");
             music.setThumbMediaId(mediaId);
