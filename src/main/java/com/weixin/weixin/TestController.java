@@ -1,13 +1,13 @@
-package com.weixin.weixin.weixin;
+package com.weixin.weixin;
 /**
  * @description 微信公众号服务器配置校验token
  * @date 2019-05-09 9:38
  * @return
  */
 
-import com.weixin.weixin.util.InitMsgContentUtil;
-import com.weixin.weixin.util.MessageUtil;
-import com.weixin.weixin.util.SignUtil;
+import com.weixin.util.InitMsgContentUtil;
+import com.weixin.util.MessageUtil;
+import com.weixin.util.SignUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

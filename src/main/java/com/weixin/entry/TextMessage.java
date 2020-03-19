@@ -1,4 +1,4 @@
-package com.weixin.weixin.entry;
+package com.weixin.entry;
 
 import lombok.Data;
 

@@ -1,7 +1,8 @@
-package com.weixin.weixin.util;
+package com.weixin.util;
 
-import com.weixin.weixin.entry.*;
+import com.weixin.entry.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,17 +59,17 @@ public class InitMsgContentUtil {
      * @param fromUserName
      * @return
      */
-    public static String initMusicMessage(String toUserName,String fromUserName){
+    public static String initMusicMessage(String toUserName,String fromUserName) throws IOException {
         String message = "";
         String access_token = WeiXinUtil.getAccessToken().getToken();
-        String path = "E:/cxy.jpg";
+        String path = "https://bucket-youyou.oss-cn-beijing.aliyuncs.com/yoyo/78d4be3301fe453aa59f4c7856362e30.png";
         try{
             Music music = new Music();
             String mediaId = WeiXinUtil.upload(path, access_token, "thumb");
             music.setTitle("好听的Music");
             music.setDescription("感觉非常哇塞的歌曲了。。");
-            music.setMusicUrl("http://0536123456.free.ngrok.cc/WeiXin/music/music.mp3");
-            music.setHQMusicUrl("http://0536123456.free.ngrok.cc/WeiXin/music/music.mp3");
+            music.setMusicUrl("https://bucket-youyou.oss-cn-beijing.aliyuncs.com/yoyo_project/teacherResource/008b7c28ac824a539166412284f318d6.mp3");
+            music.setHQMusicUrl("https://bucket-youyou.oss-cn-beijing.aliyuncs.com/yoyo_project/teacherResource/008b7c28ac824a539166412284f318d6.mp3");
             music.setThumbMediaId(mediaId);
 
             MusicMessage musicMessage = new MusicMessage();

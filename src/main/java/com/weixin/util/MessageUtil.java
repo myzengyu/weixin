@@ -1,14 +1,14 @@
-package com.weixin.weixin.util;
+package com.weixin.util;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
-import com.weixin.weixin.entry.MusicMessage;
-import com.weixin.weixin.entry.News;
-import com.weixin.weixin.entry.NewsMessage;
-import com.weixin.weixin.entry.TextMessage;
+import com.weixin.entry.MusicMessage;
+import com.weixin.entry.News;
+import com.weixin.entry.NewsMessage;
+import com.weixin.entry.TextMessage;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
