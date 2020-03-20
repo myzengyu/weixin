@@ -68,12 +68,11 @@ public class InitMsgContentUtils {
      */
     public String initMusicMessage(String toUserName, String fromUserName) throws IOException {
         String message = "";
-<<<<<<< HEAD:src/main/java/com/weixin/util/InitMsgContentUtil.java
         String access_token = WeiXinUtil.getAccessToken().getToken();
-//        String path = "https://bucket-youyou.oss-cn-beijing.aliyuncs.com/yoyo/78d4be3301fe453aa59f4c7856362e30.png";
+		//String path = "https://bucket-youyou.oss-cn-beijing.aliyuncs.com/yoyo/78d4be3301fe453aa59f4c7856362e30.png";
         String path = "src/main/resources/static/111.jpg";
         try{
-=======
+
         String access_token = null;
         int i = 0;
         while (access_token == null) {
@@ -87,7 +86,6 @@ public class InitMsgContentUtils {
         }
         String path = "https://bucket-youyou.oss-cn-beijing.aliyuncs.com/yoyo/78d4be3301fe453aa59f4c7856362e30.png";
         try {
->>>>>>> 3bb040dc797d172bfd8e0daf5e0c9c3316348147:src/main/java/com/weixin/util/InitMsgContentUtils.java
             Music music = new Music();
             String mediaId = WeiXinUtils.upload(path, access_token, "thumb");
             music.setTitle("好听的Music");
