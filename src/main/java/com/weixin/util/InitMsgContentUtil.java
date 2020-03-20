@@ -62,7 +62,8 @@ public class InitMsgContentUtil {
     public static String initMusicMessage(String toUserName,String fromUserName) throws IOException {
         String message = "";
         String access_token = WeiXinUtil.getAccessToken().getToken();
-        String path = "https://bucket-youyou.oss-cn-beijing.aliyuncs.com/yoyo/78d4be3301fe453aa59f4c7856362e30.png";
+//        String path = "https://bucket-youyou.oss-cn-beijing.aliyuncs.com/yoyo/78d4be3301fe453aa59f4c7856362e30.png";
+        String path = "src/main/resources/static/111.jpg";
         try{
             Music music = new Music();
             String mediaId = WeiXinUtil.upload(path, access_token, "thumb");

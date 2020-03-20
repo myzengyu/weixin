@@ -1,4 +1,4 @@
-package com.weixin.weixin;
+package com.weixin.controller;
 /**
  * @description 微信公众号服务器配置校验token
  * @date 2019-05-09 9:38
@@ -56,7 +56,7 @@ public class TestController {
         String message = null;
         if (msgType.equals((MessageUtil.REQ_MESSAGE_TYPE_TEXT))) {
             if ("文本".equals(content)) {
-                String text = "曾宇微信公众号测试";
+                String text = "曾宇微信公众号测试~~~~";
                 //调用初始化文本消息方法
                 message = InitMsgContentUtil.initText(toUserName, fromUserName, text);
             }
