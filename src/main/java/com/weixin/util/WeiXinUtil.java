@@ -20,19 +20,12 @@ import java.security.NoSuchProviderException;
 
 public class WeiXinUtil {
 
-    public static final String APP_ID = "wx1bd0ff4b2ba03f91";
-    public static final String APP_SECRET = "53b4d81fcab6b667afee1df90b5a0e64";
-    //获取acces_token 接口地址
-    public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APP_ID&secret=APP_SECRET";
-    //上传文件url接口地址
-    private static final String UPLOAD_URL = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
-
     /**
      * Get请求
      *
      * @param url
-     * @return 注意事项 添加jsonobject的jar包及依赖jar包
-     * 添加httpclient，httpcore的 jar包
+     * @return 注意事项 添加json object的jar包及依赖jar包
+     * 添加httpclient，http core的 jar包
      */
     public static JSONObject doGetStr(String url) {
         DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -82,7 +75,7 @@ public class WeiXinUtil {
      */
     public static AccessToken getAccessToken() {
         AccessToken token = new AccessToken();
-        String url = ACCESS_TOKEN_URL.replace("APP_ID", APP_ID).replace("APP_SECRET", APP_SECRET);
+        String url = PropertiesUtils.getString("ACCESS_TOKEN_URL").replace("APP_ID", PropertiesUtils.getString("APP_ID")).replace("APP_SECRET", PropertiesUtils.getString("APP_SECRET"));
         JSONObject jsonObject = doGetStr(url);
         if (jsonObject != null) {
             token.setToken(jsonObject.getString("access_token"));
@@ -109,7 +102,7 @@ public class WeiXinUtil {
         if (!file.exists() || !file.isFile()) {
             throw new IOException("文件不存在");
         }
-        String url = UPLOAD_URL.replace("ACCESS_TOKEN", accessToken).replace("TYPE", type);
+        String url = PropertiesUtils.getString("UPLOAD_URL").replace("ACCESS_TOKEN", accessToken).replace("TYPE", type);
         URL urlObj = new URL(url);
         //连接
         HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
