@@ -2,6 +2,7 @@ package com.weixin.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.weixin.entry.AccessToken;
+import com.weixin.schedule.ScheduledTasks;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -10,6 +11,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -18,21 +21,15 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
-public class WeiXinUtil {
-
-    public static final String APP_ID = "wx1bd0ff4b2ba03f91";
-    public static final String APP_SECRET = "53b4d81fcab6b667afee1df90b5a0e64";
-    //获取acces_token 接口地址
-    public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APP_ID&secret=APP_SECRET";
-    //上传文件url接口地址
-    private static final String UPLOAD_URL = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
+public class WeiXinUtils {
+    private static final Logger logger = LoggerFactory.getLogger(ScheduledTasks.class);
 
     /**
      * Get请求
      *
      * @param url
-     * @return 注意事项 添加jsonobject的jar包及依赖jar包
-     * 添加httpclient，httpcore的 jar包
+     * @return 注意事项 添加json object的jar包及依赖jar包
+     * 添加httpclient，http core的 jar包
      */
     public static JSONObject doGetStr(String url) {
         DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -82,13 +79,16 @@ public class WeiXinUtil {
      */
     public static AccessToken getAccessToken() {
         AccessToken token = new AccessToken();
-        String url = ACCESS_TOKEN_URL.replace("APP_ID", APP_ID).replace("APP_SECRET", APP_SECRET);
+        String url = PropertiesUtils.getString("ACCESS_TOKEN_URL").replace("APP_ID", PropertiesUtils.getString("APP_ID")).replace("APP_SECRET", PropertiesUtils.getString("APP_SECRET"));
         JSONObject jsonObject = doGetStr(url);
         if (jsonObject != null) {
-            token.setToken(jsonObject.getString("access_token"));
-            token.setExpiresIn(jsonObject.getIntValue("expires_in"));
+            try {
+                token.setToken(jsonObject.getString("access_token"));
+                token.setExpiresIn(jsonObject.getIntValue("expires_in"));
+            } catch (Exception e) {
+                logger.error("获取access_token失败，请联系管理员");
+            }
         }
-        System.err.println(jsonObject);
         return token;
     }
 
@@ -109,7 +109,7 @@ public class WeiXinUtil {
         if (!file.exists() || !file.isFile()) {
             throw new IOException("文件不存在");
         }
-        String url = UPLOAD_URL.replace("ACCESS_TOKEN", accessToken).replace("TYPE", type);
+        String url = PropertiesUtils.getString("UPLOAD_URL").replace("ACCESS_TOKEN", accessToken).replace("TYPE", type);
         URL urlObj = new URL(url);
         //连接
         HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();

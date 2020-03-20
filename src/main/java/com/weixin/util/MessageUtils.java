@@ -25,7 +25,7 @@ import java.util.Map;
  * 3 * @Date: 2020/3/19 10:21
  * 4
  */
-public class MessageUtil {
+public class MessageUtils {
 
     //文本信息
     public static final String REQ_MESSAGE_TYPE_TEXT = "text";
