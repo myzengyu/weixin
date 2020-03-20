@@ -8,6 +8,6 @@ import lombok.Data;
 @Data
 
 public class Menu {
-	private Button[] button;
+    private Button[] button;
 
 }

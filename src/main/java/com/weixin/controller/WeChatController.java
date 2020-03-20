@@ -6,7 +6,7 @@ package com.weixin.controller;
  */
 
 import com.weixin.service.WeChatService;
-import com.weixin.util.SignUtil;
+import com.weixin.util.SignUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @Controller
-public class TestController {
+public class WeChatController {
 
     @Autowired
     private WeChatService weChatService;
@@ -32,7 +32,7 @@ public class TestController {
         String nonce = request.getParameter("nonce");
         String echostr = request.getParameter("echostr");
         PrintWriter writer = response.getWriter();
-        if (SignUtil.checkSignature(signature, timestamp, nonce)) {
+        if (SignUtils.checkSignature(signature, timestamp, nonce)) {
             System.out.println(echostr);
             writer.println(echostr);
         }

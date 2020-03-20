@@ -9,7 +9,7 @@ import java.util.Arrays;
  * 3 * @Date: 2020/3/19 10:21
  * 4
  */
-public class SignUtil {
+public class SignUtils {
     private static String token = "weixin";
 
     /**
