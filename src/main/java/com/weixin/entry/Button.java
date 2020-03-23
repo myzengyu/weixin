@@ -1,4 +1,4 @@
-package com.weixin.bean;
+package com.weixin.entry;
 
 import lombok.Data;
 
@@ -9,7 +9,4 @@ import lombok.Data;
 @Data
 public class Button {
 	private String name;
-
-
-	
 }

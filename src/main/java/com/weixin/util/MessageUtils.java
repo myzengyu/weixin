@@ -5,10 +5,10 @@ import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
-import com.weixin.entry.MusicMessage;
-import com.weixin.entry.News;
-import com.weixin.entry.NewsMessage;
-import com.weixin.entry.TextMessage;
+import com.weixin.bean.MusicMessage;
+import com.weixin.bean.News;
+import com.weixin.bean.NewsMessage;
+import com.weixin.bean.TextMessage;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -27,30 +27,43 @@ import java.util.Map;
  */
 public class MessageUtils {
 
-    //文本信息
+    //返回消息类型:文本信息
+    public static final String RESP_MESSAGE_TYPE_TEXT = "text";
+    //返回消息类型:音乐信息
+    public static final String RESP_MESSAGE_TYPE_MUSIC = "music";
+    //返回消息类型:新闻
+    public static final String RESP_MESSAGE_TYPE_NEWS = "news";
+
+    //------------------------------------------------------------
+
+    //请求消息类型：文本
     public static final String REQ_MESSAGE_TYPE_TEXT = "text";
-    //图片信息
+    //请求消息类型：图片信息
     public static final String REQ_MESSAGE_TYPE_IMAGE = "image";
-    //新闻
-    public static final String REQ_MESSAGE_TYPE_NEWS = "news";
-    //视频信息
+    //请求消息类型：视频信息
     public static final String REQ_MESSAGE_TYPE_VIDEO = "video";
-    //音频信息
-    public static final String REQ_MESSAGE_TYPE_VOICE = "music";
-    //短视频信息
+    //请求消息类型：音频
+    public static final String REQ_MESSAGE_TYPE_VOICE = "voice";
+    //请求消息类型：短视频信息
     public static final String REQ_MESSAGE_TYPE_SHORT_VIDEO = "short_video";
-    //地理信息信息
+    //请求消息类型：地理信息信息
     public static final String REQ_MESSAGE_TYPE_LOCATION = "location";
-    //链接信息
+    //请求消息类型：链接信息
     public static final String REQ_MESSAGE_TYPE_LINK = "link";
-    //事件
+    //请求消息类型：事件
     public static final String REQ_MESSAGE_TYPE_EVENT = "event";
-    //关注
-    public static final String REQ_MESSAGE_TYPE_SUBSCRIBE = "subscribe";
-    //取消关注
-    public static final String REQ_MESSAGE_TYPE_UNSUBSCRIBE = "unsubscribe";
-    //点击
-    public static final String REQ_MESSAGE_TYPE_CLICK = "click";
+
+    //------------------------------------------------------------
+
+    //事件类型：关注
+    public static final String EVENT_MESSAGE_TYPE_SUBSCRIBE = "subscribe";
+    //事件类型：取消关注
+    public static final String EVENT_MESSAGE_TYPE_UNSUBSCRIBE = "unsubscribe";
+    //事件类型：点击
+    public static final String EVENT_MESSAGE_TYPE_CLICK = "click";
+
+    //------------------------------------------------------------
+
     //点击菜单跳转链接时的事件推送
     public static final String REQ_MESSAGE_TYPE_VIEW = "view";
     //扫码
@@ -100,13 +113,15 @@ public class MessageUtils {
 
     /**
      * 将音乐信息转换为xml
+     *
      * @param musicMessage
      * @return
      */
-    public static String musicMessageToXml(MusicMessage musicMessage){
+    public static String musicMessageToXml(MusicMessage musicMessage) {
         xStream.alias("xml", musicMessage.getClass());
         return xStream.toXML(musicMessage);
     }
+
     /**
      * xStream本身不支持生成cdata块生成，对xstream扩展，让其自动生成cdata块
      */

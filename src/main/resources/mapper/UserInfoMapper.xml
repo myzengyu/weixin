@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weixin.dao.UserInfoMapper">
+    <resultMap id="weChatUser" type="com.weixin.entry.User">
+        <id column="w_id" property="id"/>
+        <result column="w_openid" property="openid"/>
+        <result column="w_nickname" property="nickname"/>
+        <result column="w_nickname_emoj" property="nickname_emoj"/>
+        <result column="w_headimgurl" property="headimgurl"/>
+        <result column="w_sex" property="sex"/>
+        <result column="w_subscribe" property="subscribe"/>
+        <result column="w_language" property="language"/>
+        <result column="w_city" property="city"/>
+        <result column="w_province" property="province"/>
+        <result column="w_country" property="country"/>
+        <result column="w_subscribe_ti" property="subscribe_ti"/>
+        <result column="w_privilege" property="privilege"/>
+        <result column="w_unionid" property="unionid"/>
+        <result column="w_groupid" property="groupid"/>
+        <result column="w_remark" property="remark"/>
+        <result column="w_tagid_list" property="tagid_list"/>
+    </resultMap>
+    <insert id="insert" parameterType="User">
+        insert into wechat (w_openid, w_nickname, w_nickname_emoj, w_headimgurl, w_sex, w_subscribe, w_language, w_city, w_province, w_country, w_subscribe_ti, w_privilege, w_unionid, w_groupid, w_remark, w_tagid_list)
+                values (#{openid},#{nickname},#{nickname_emoj},#{headimgurl},#{sex},#{subscribe},#{language},#{city},#{province},#{country},#{subscribe_ti},#{privilege},#{unionid},#{groupid},#{remark},#{tagid_list});
+    </insert>
+
+    <select id="selectByOpenid" parameterType="string" resultMap="weChatUser">
+        select * from wechat w where w.w_openid = #{id};
+    </select>
+
+
+</mapper>

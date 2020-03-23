@@ -1,6 +1,6 @@
 package com.weixin.schedule;
 
-import com.weixin.entry.AccessToken;
+import com.weixin.bean.AccessToken;
 import com.weixin.util.PropertiesUtils;
 import com.weixin.util.RedisUtils;
 import com.weixin.util.WeiXinUtils;
@@ -16,6 +16,7 @@ import java.util.Date;
 
 @Component
 public class ScheduledTasks {
+
     private static final Logger logger = LoggerFactory.getLogger(ScheduledTasks.class);
     private static final SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
 

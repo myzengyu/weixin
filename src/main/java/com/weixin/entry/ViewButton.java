@@ -1,12 +1,12 @@
-package com.weixin.bean;
+package com.weixin.entry;
 
+import com.weixin.entry.Button;
 import lombok.Data;
 
 /**
  * view类型的菜单
  */
 @Data
-
 public class ViewButton extends Button {
     private String type;
     private String url;

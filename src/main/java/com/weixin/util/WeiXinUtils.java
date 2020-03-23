@@ -1,7 +1,7 @@
 package com.weixin.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.weixin.entry.AccessToken;
+import com.weixin.bean.AccessToken;
 import com.weixin.schedule.ScheduledTasks;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
