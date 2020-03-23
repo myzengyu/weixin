@@ -9,4 +9,6 @@ public interface BaseMapper<ids extends Serializable, T extends Object> {
      * @param t
      */
     void insert(T t);
+
+    T selectByOpenid(String id);
 }

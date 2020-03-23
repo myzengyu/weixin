@@ -28,7 +28,8 @@ public class UserInfoService {
         String token = initMsgContentUtils.getToken();
         JSONObject jsonObject = WeiXinUtils.doGetStr(PropertiesUtils.getString("GET_USER_INFO").replace("ACCESS_TOKEN", token).replace("OPENID", openid));
         User user = JSONObject.parseObject(jsonObject.toJSONString(), User.class);
-        userInfoMapper.insert(user);
+        if (userInfoMapper.selectByOpenid(user.getOpenid()) == null)
+            userInfoMapper.insert(user);
         return "欢迎关注微信公众号";
     }
 }

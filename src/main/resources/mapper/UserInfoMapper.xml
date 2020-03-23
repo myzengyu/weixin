@@ -25,5 +25,9 @@
                 values (#{openid},#{nickname},#{nickname_emoj},#{headimgurl},#{sex},#{subscribe},#{language},#{city},#{province},#{country},#{subscribe_ti},#{privilege},#{unionid},#{groupid},#{remark},#{tagid_list});
     </insert>
 
+    <select id="selectByOpenid" parameterType="string" resultMap="weChatUser">
+        select * from wechat w where w.w_openid = #{id};
+    </select>
+
 
 </mapper>
