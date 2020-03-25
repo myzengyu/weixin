@@ -1,6 +1,7 @@
 package com.weixin.module.weixin.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.weixin.common.util.HttpClient;
 import com.weixin.module.weixin.dao.UserInfoMapper;
 import com.weixin.module.weixin.entry.User;
 import com.weixin.common.util.InitMsgContentUtils;
@@ -26,7 +27,7 @@ public class UserInfoService {
      */
     public String getUserInfo(String openid) {
         String token = initMsgContentUtils.getToken();
-        JSONObject jsonObject = WeiXinUtils.doGetStr(PropertiesUtils.getString("GET_USER_INFO").replace("ACCESS_TOKEN", token).replace("OPENID", openid));
+        JSONObject jsonObject = HttpClient.doGetStr(PropertiesUtils.getString("GET_USER_INFO").replace("ACCESS_TOKEN", token).replace("OPENID", openid));
         User user = JSONObject.parseObject(jsonObject.toJSONString(), User.class);
         if (userInfoMapper.selectByOpenid(user.getOpenid()) == null)
             userInfoMapper.insert(user);

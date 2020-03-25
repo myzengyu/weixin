@@ -109,7 +109,7 @@ public class InitMsgContentUtils {
         int result = 0;
         Menu menu = MenuManage.getMenu();
         String token = getToken();
-        JSONObject jsonObject = WeiXinUtils.doPostStr(PropertiesUtils.getString("CREATE_MENU").replace("ACCESS_TOKEN", token), JSONObject.toJSONString(menu));
+        JSONObject jsonObject = HttpClient.doPostStr(PropertiesUtils.getString("CREATE_MENU").replace("ACCESS_TOKEN", token), JSONObject.toJSONString(menu));
         if (jsonObject != null) {
             TextMessage text = new TextMessage();
             text.setFromUserName(toUserName);

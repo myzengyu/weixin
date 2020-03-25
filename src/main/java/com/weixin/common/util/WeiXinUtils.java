@@ -22,55 +22,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
 public class WeiXinUtils {
+
+
     private static final Logger logger = LoggerFactory.getLogger(ScheduledTasks.class);
-
-    /**
-     * Get请求
-     *
-     * @param url
-     * @return 注意事项 添加json object的jar包及依赖jar包
-     * 添加httpclient，http core的 jar包
-     */
-    public static JSONObject doGetStr(String url) {
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(url);
-        JSONObject jsonObject = null;
-        try {
-            HttpResponse response = httpClient.execute(httpGet);
-            HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                String result = EntityUtils.toString(entity, "UTF-8");
-                jsonObject = JSONObject.parseObject(result);
-            }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return jsonObject;
-    }
-
-    /**
-     * post请求
-     *
-     * @param url
-     * @param outStr
-     * @return
-     */
-    public static JSONObject doPostStr(String url, String outStr) {
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(url);
-        JSONObject jsonObject = null;
-        try {
-            httpPost.setEntity(new StringEntity(outStr, "UTF-8"));
-            HttpResponse response = httpClient.execute(httpPost);
-            String result = EntityUtils.toString(response.getEntity(), "UTF-8");
-            jsonObject = JSONObject.parseObject(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonObject;
-    }
 
     /**
      * 获取access_token
@@ -80,7 +34,7 @@ public class WeiXinUtils {
     public static AccessToken getAccessToken() {
         AccessToken token = new AccessToken();
         String url = PropertiesUtils.getString("ACCESS_TOKEN_URL").replace("APP_ID", PropertiesUtils.getString("APP_ID")).replace("APP_SECRET", PropertiesUtils.getString("APP_SECRET"));
-        JSONObject jsonObject = doGetStr(url);
+        JSONObject jsonObject = HttpClient.doGetStr(url);
         if (jsonObject != null) {
             try {
                 token.setToken(jsonObject.getString("access_token"));

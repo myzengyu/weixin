@@ -23,7 +23,7 @@ public class ScheduledTasks {
     @Autowired
     private RedisUtils redisUtils;
 
-    @Scheduled(cron = " * * 0/2 * * ? ")
+    @Scheduled(cron = " 0 0 0/2 * * ? ")
     public void reportCurrent() {
         //每隔两小时获取一次access_token
         AccessToken accessToken = WeiXinUtils.getAccessToken();
