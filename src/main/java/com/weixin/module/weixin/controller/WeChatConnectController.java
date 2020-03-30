@@ -5,8 +5,8 @@ package com.weixin.module.weixin.controller;
  * @return
  */
 
-import com.weixin.module.weixin.service.WeChatService;
 import com.weixin.common.util.SignUtils;
+import com.weixin.module.weixin.service.WeChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @Controller
-public class WeChatController {
+public class WeChatConnectController {
 
     @Autowired
     private WeChatService weChatService;
@@ -44,7 +44,6 @@ public class WeChatController {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
-
         String message = weChatService.processRequest(request);
         out.print(message);
         out.close();

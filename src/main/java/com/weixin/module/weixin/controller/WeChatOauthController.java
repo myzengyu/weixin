@@ -15,7 +15,7 @@ import java.net.URLEncoder;
 
 @Controller
 @RequestMapping("weChat")
-public class WeChatOauth {
+public class WeChatOauthController {
 
     @Autowired
     private RedisUtils redisUtils;
